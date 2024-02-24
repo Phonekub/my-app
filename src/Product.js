@@ -4,6 +4,7 @@ export default function Product(){
     const baseURL="http://127.0.0.1:5000/products";
     const myInputRef1= React.createRef();
     const myInputRef2= React.createRef();
+    const myInputRef3= React.createRef();
     const [product,setProduct]=useState([])
     useEffect(()=>{
         console.log("request to api")
@@ -22,9 +23,13 @@ export default function Product(){
     const onOkClick=(id)=>{
         console.log(myInputRef1.current.value);
         console.log(myInputRef2.current.value);
+        console.log(myInputRef3.current.value);
+
         const data={
             name:myInputRef1.current.value,
-            price:myInputRef2.current.value
+            price:myInputRef2.current.value,
+            id:myInputRef3.current.value
+
         }
         axios.put(baseURL,data).then((response)=>{
             setProduct(response.data);
@@ -33,9 +38,11 @@ export default function Product(){
     const onAddProduct=()=>{
         console.log(myInputRef1.current.value);
         console.log(myInputRef2.current.value);
+        console.log(myInputRef3.current.value);
         const data={
             name:myInputRef1.current.value,
-            price:myInputRef2.current.value
+            price:myInputRef2.current.value,
+            id:myInputRef3.current.value
         }
         axios.post(baseURL,data).then((response)=>{
             setProduct(response.data);
@@ -43,25 +50,23 @@ export default function Product(){
 
         
     }
-   const show_product = product.map((item)=>{
-    return (<tr><td>{item.id}</td><td>{item.name}</td><td>{item.price}</td>
+   const show_products = product.map((item)=>{
+    return (<tr key={item.id}><td>{item.id}</td><td>{item.name}</td><td>{item.price}</td>
         <td><button onClick={onDeleteProduct.bind(this,item.id)}>delete</button></td>
         <td><button onClick={onOkClick.bind(this,item.id)}>ok</button></td>
 
     </tr>)
    })
-    return (<div>       
-        <table border='1'>
-            <thead>
-                <tr>    
-                    <td>id</td><td>name</td><td>price</td><td></td>
-                </tr>
-            </thead>
-            <tbody>{show_product}</tbody>
-        </table>
-            Product name:<input type='text' name='product_name' ref={myInputRef1}/> 
-            <br/> Price <input type='text' name='product_price' ref={myInputRef2}/> 
-            <button onClick={onAddProduct.bind(this)}>Add</button>
-    </div>)
+    return (<div>
+        <table border='1'><thead><tr><td>id</td><td>name</td><td>price</td><td></td></tr></thead>
+        <tbody>{show_products}</tbody></table>
+        Product ID : <input type="text" name ='product_id' ref={myInputRef3}/>
+        <br/>
+        Product name : <input type="text" name ='product_name' ref={myInputRef1}/>
+        <br/>
+        Price : <input type="text" name ='product_price' ref={myInputRef2}/>
+        <br/>
+        <button onClick={onAddProduct.bind(this)}>Add</button>
+        </div>);
 
 }
