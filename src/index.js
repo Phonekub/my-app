@@ -9,7 +9,6 @@ import Product from './Product';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <Hello/> */}
     <Product/>
   </React.StrictMode>
 );
