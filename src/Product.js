@@ -1,7 +1,6 @@
 import React,{ useState,useEffect } from "react";
 import axios from "axios";
 export default function Product(){
-    const baseURL="http://127.0.0.1:5000/products";
     const myInputRef1= React.createRef();
     const myInputRef2= React.createRef();
     const myInputRef3= React.createRef();
@@ -16,7 +15,7 @@ export default function Product(){
     },[])
     const onDeleteProduct=(id)=>{
         console.log(id);
-        axios.delete(baseURL).then((response)=>{
+        axios.delete("http://127.0.0.1:5000/products/"+id).then((response)=>{
             setProduct(response.data);
         });
     }
@@ -31,7 +30,7 @@ export default function Product(){
             id:myInputRef3.current.value
 
         }
-        axios.put(baseURL,data).then((response)=>{
+        axios.put("http://127.0.0.1:5000/products/"+id,data).then((response)=>{
             setProduct(response.data);
         })
     }
@@ -44,7 +43,7 @@ export default function Product(){
             price:myInputRef2.current.value,
             id:myInputRef3.current.value
         }
-        axios.post(baseURL,data).then((response)=>{
+        axios.post("http://127.0.0.1:5000/products",data).then((response)=>{
             setProduct(response.data);
         })
 
