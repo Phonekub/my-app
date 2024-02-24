@@ -15,26 +15,38 @@ export default function Product(){
     },[])
     const onDeleteProduct=(id)=>{
         console.log(id);
-        axios.delete(baseURL+"/api/products"+id).then((response)=>{
+        axios.delete(baseURL).then((response)=>{
             setProduct(response.data);
         });
     }
-    
-    // const onAddProduct=()=>{
-    //     console.log(myInputRef1.current.value);
-    //     console.log(myInputRef2.current.value);
-    //     const data={
-    //         name:myInputRef1.current.value;
-    //         price:myInputRef2.current.value;
-    //     }
+    const onOkClick=(id)=>{
+        console.log(myInputRef1.current.value);
+        console.log(myInputRef2.current.value);
+        const data={
+            name:myInputRef1.current.value,
+            price:myInputRef2.current.value
+        }
+        axios.put(baseURL,data).then((response)=>{
+            setProduct(response.data);
+        })
+    }
+    const onAddProduct=()=>{
+        console.log(myInputRef1.current.value);
+        console.log(myInputRef2.current.value);
+        const data={
+            name:myInputRef1.current.value,
+            price:myInputRef2.current.value
+        }
+        axios.post(baseURL,data).then((response)=>{
+            setProduct(response.data);
+        })
 
         
-    // }
-
+    }
    const show_product = product.map((item)=>{
     return (<tr><td>{item.id}</td><td>{item.name}</td><td>{item.price}</td>
-        <td><button onClick>delete</button></td>
-        <td><button onClick>ok</button></td>
+        <td><button onClick={onDeleteProduct.bind(this,item.id)}>delete</button></td>
+        <td><button onClick={onOkClick.bind(this,item.id)}>ok</button></td>
 
     </tr>)
    })
@@ -49,7 +61,7 @@ export default function Product(){
         </table>
             Product name:<input type='text' name='product_name' ref={myInputRef1}/> 
             <br/> Price <input type='text' name='product_price' ref={myInputRef2}/> 
-            <button onClick>Add</button>
+            <button onClick={onAddProduct.bind(this)}>Add</button>
     </div>)
 
 }
