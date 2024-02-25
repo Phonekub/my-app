@@ -58,8 +58,9 @@ export default function Product(){
    })
     return (<div>
         <table border='1'><thead><tr><td>id</td><td>name</td><td>price</td><td></td></tr></thead>
-        <tbody>{show_products}</tbody></table>
-        Product ID : <input type="text" name ='product_id' ref={myInputRef3}/>
+        <tbody>{show_products}</tbody>
+        </table>
+        Product ID: <input type="text" name ='product_id' ref={myInputRef3}/>(ถ้าจะaddให้ใส่เลขใหม่ แต่ถ้าต้องการแก้ให้ใส่idที่อยู่ในตารางที่ต้องการแก้ไข้)
         <br/>
         Product name : <input type="text" name ='product_name' ref={myInputRef1}/>
         <br/>
